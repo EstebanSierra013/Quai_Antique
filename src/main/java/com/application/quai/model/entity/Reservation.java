@@ -1,4 +1,4 @@
-package com.application.quai.model;
+package com.application.quai.model.entity;
 
 import java.time.LocalDate;
 
@@ -31,7 +31,7 @@ public class Reservation{
  private int idReservation;
 
  @Column
- private int guestnumbers;
+ private int guestNumbers;
 
  @Column(nullable=false)
  private LocalDate date;

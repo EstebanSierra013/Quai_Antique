@@ -1,4 +1,4 @@
-package com.application.quai.model;
+package com.application.quai.model.entity;
 
 import java.text.DecimalFormat;
 

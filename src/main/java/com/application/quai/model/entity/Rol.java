@@ -1,6 +1,8 @@
-package com.application.quai.model;
+package com.application.quai.model.entity;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -23,17 +25,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "category")
-public class Category{
+@Table(name = "rol")
+public class Rol{
 
- @Id
- @GeneratedValue(strategy = GenerationType.IDENTITY)
- private int idCategory;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int idRol;
 
- @Column(nullable=false)
- private String name;
+  @Column(nullable=false)
+  private String name;
 
-@OneToMany(mappedBy="categoryId", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
- private List<Dish> dishList;
+  @OneToMany(mappedBy="rolId", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
+  @JsonIgnore
+  private List<User> userList;
 
 }

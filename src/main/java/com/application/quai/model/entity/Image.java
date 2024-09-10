@@ -1,15 +1,10 @@
-package com.application.quai.model;
+package com.application.quai.model.entity;
 
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,17 +18,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "rol")
-public class Rol{
+@Table(name = "image")
+public class Image{
 
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
- private int idRol;
+ private int idImage;
 
  @Column(nullable=false)
- private String name;
-
- @OneToMany(mappedBy="rolId", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
- private List<User> userList;
+ private String url;
 
 }
