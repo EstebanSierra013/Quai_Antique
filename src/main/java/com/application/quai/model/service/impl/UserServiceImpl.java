@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.application.quai.model.dto.UserDto;
 import com.application.quai.model.dto.request.UserRequest;
+import com.application.quai.model.entity.Rol;
 import com.application.quai.model.entity.User;
 import com.application.quai.model.mapper.UserDtoMapper;
 import com.application.quai.model.mapper.UserRequestMapper;
@@ -36,8 +37,12 @@ public class UserServiceImpl implements IUserService{
         User newUser = userRequestMapper.toDomain(user);
 
         String rolDefault = "Client";
-        newUser.setRol(rolRepository.findByName(rolDefault));
-
+        Rol rolClient = rolRepository.findByName(rolDefault);
+        if(rolClient != null){
+            newUser.setRol(rolRepository.findByName(rolDefault));
+            rolClient.getUserList().addAll(List.of(newUser));
+        }    
+        
         User createdUser = userRepository.save(newUser);
         return userDtoMapper.toDto(createdUser);
     }

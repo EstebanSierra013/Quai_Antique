@@ -1,7 +1,7 @@
 package com.application.quai.model.service;
 
-import com.application.quai.model.entity.Rol;
+import com.application.quai.model.dto.RolDto;
 
 public interface IRolService {
-  Rol getById( int id );
+  RolDto getById( int id );
 }

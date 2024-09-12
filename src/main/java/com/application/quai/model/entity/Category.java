@@ -26,14 +26,14 @@ import lombok.Setter;
 @Table(name = "category")
 public class Category{
 
- @Id
- @GeneratedValue(strategy = GenerationType.IDENTITY)
- private int idCategory;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int idCategory;
 
- @Column(nullable=false)
- private String name;
+  @Column(nullable=false)
+  private String name;
 
-@OneToMany(mappedBy="categoryId", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
- private List<Dish> dishList;
+  @OneToMany(mappedBy="categoryId", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
+  private List<Dish> dishList;
 
 }

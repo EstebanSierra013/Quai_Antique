@@ -40,7 +40,7 @@ public class User{
   @Column(nullable=false)
   private String password;
 
-  @ManyToOne(cascade=CascadeType.ALL)
+  @ManyToOne(cascade=CascadeType.MERGE)
   @JoinColumn(name="rol", nullable=false)
   private Rol rol;
 
