@@ -41,11 +41,11 @@ public class User{
   private String password;
 
   @ManyToOne(cascade=CascadeType.ALL)
-  @JoinColumn(name="rolId", nullable=false)
-  private Rol rolId;
+  @JoinColumn(name="rol", nullable=false)
+  private Rol rol;
 
   @Column
-  private Integer guestNumbers;
+  private int guestNumbers;
 
   @Column
   private String allergy;
@@ -53,4 +53,5 @@ public class User{
   @OneToMany(mappedBy="userId", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
   @JsonIgnore
   private List<Reservation> reservationList;
+
 }

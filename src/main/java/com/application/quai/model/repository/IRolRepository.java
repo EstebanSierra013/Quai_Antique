@@ -8,5 +8,5 @@ import com.application.quai.model.entity.Rol;
 
 @Repository
 public interface IRolRepository extends JpaRepository<Rol, Integer> {
-  
+  Rol findByName(String name);
 }

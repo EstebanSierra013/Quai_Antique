@@ -2,14 +2,14 @@ package com.application.quai.model.service;
 
 import java.util.List;
 
-import com.application.quai.model.entity.User;
+import com.application.quai.model.dto.UserDto;
+import com.application.quai.model.dto.request.UserRequest;
 
 
 
 public interface IUserService {
-  User create(User user);
-  List<User> findAll();
-  User getByEmail( String id );
-  void save(User user);
+  UserDto create(UserRequest user);
+  List<UserDto> findAll();
+  UserDto getByEmail( String id );
   void deleteById( String id );
 }

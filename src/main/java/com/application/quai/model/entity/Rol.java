@@ -35,7 +35,7 @@ public class Rol{
   @Column(nullable=false)
   private String name;
 
-  @OneToMany(mappedBy="rolId", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
+  @OneToMany(mappedBy="rol", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
   @JsonIgnore
   private List<User> userList;
 

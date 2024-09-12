@@ -8,5 +8,6 @@ import com.application.quai.model.entity.Restaurant;
 
 @Mapper(componentModel = "spring") 
 public interface RestaurantDtoMapper {
+  
   RestaurantDto toDto(Restaurant restaurant);
 }
