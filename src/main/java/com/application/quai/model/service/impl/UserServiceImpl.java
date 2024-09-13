@@ -37,6 +37,7 @@ public class UserServiceImpl implements IUserService{
         User newUser = userRequestMapper.toDomain(user);
 
         String rolDefault = "Client";
+        
         Rol rolClient = rolRepository.findByName(rolDefault);
         if(rolClient != null){
             newUser.setRol(rolRepository.findByName(rolDefault));

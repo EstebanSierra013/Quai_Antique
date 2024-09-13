@@ -50,7 +50,7 @@ public class User{
   @Column
   private String allergy;
 
-  @OneToMany(mappedBy="userId", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
+  @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
   @JsonIgnore
   private List<Reservation> reservationList;
 

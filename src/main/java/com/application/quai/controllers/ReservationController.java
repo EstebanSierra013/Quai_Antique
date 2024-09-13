@@ -11,35 +11,41 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.application.quai.model.dto.request.RestaurantRequest;
-import com.application.quai.model.service.IRestaurantService;
+import com.application.quai.model.dto.request.ReservationRequest;
+import com.application.quai.model.service.IReservationService;
 
 
 @RestController
-@RequestMapping("/restaurant")
-public class RestaurantController {
+@RequestMapping("/reservation")
+public class ReservationController {
   
   @Autowired
-  private IRestaurantService restaurantService;
+  private IReservationService reservationService;
 
   @PostMapping("/")
-  public ResponseEntity<?> create(@RequestBody RestaurantRequest request) {
-    return ResponseEntity.ok(restaurantService.create(request));
+  public ResponseEntity<?> create(@RequestBody ReservationRequest request) {
+    return ResponseEntity.ok(reservationService.create(request));
   }
   
   @GetMapping("/{id}")
   public ResponseEntity<?> getById(@PathVariable int id){
-    return ResponseEntity.ok(restaurantService.getById(id));
+    return ResponseEntity.ok(reservationService.getById(id));
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<?> update(@RequestBody RestaurantRequest restaurant, @PathVariable int id){
-    return ResponseEntity.ok(restaurantService.update(restaurant, id));
+  public ResponseEntity<?> update(@RequestBody ReservationRequest reservation, @PathVariable int id){
+    return ResponseEntity.ok(reservationService.update(reservation, id));
   }
+
+  @GetMapping("/list")
+  public ResponseEntity<?> findAll(){
+    return ResponseEntity.ok(reservationService.findAll());
+  }
+
 
   @DeleteMapping("/{id}")
   public ResponseEntity<?> deleteById(@PathVariable int id){
-    restaurantService.deleteById(id);
-    return ResponseEntity.ok("Deleted Restaurant");
+    reservationService.deleteById(id);
+    return ResponseEntity.ok("Deleted Reservation");
   }
 }

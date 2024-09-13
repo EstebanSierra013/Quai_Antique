@@ -1,6 +1,7 @@
 package com.application.quai.model.entity;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,24 +27,24 @@ import lombok.Setter;
 @Table(name = "reservation")
 public class Reservation{
 
- @Id
- @GeneratedValue(strategy = GenerationType.IDENTITY)
- private int idReservation;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int idReservation;
 
- @Column
- private int guestNumbers;
+  @Column
+  private int guestNumbers;
 
- @Column(nullable=false)
- private LocalDate date;
+  @Column(nullable=false)
+  private LocalDate date;
 
- @Column(nullable=false)
- private LocalDate hour;
+  @Column(nullable=false)
+  private LocalTime hour;
 
- @Column
- private String allergy;
+  @Column
+  private String allergy;
 
- @ManyToOne(cascade=CascadeType.ALL)
- @JoinColumn(name="userId", nullable=false)
- private User userId;
+  @ManyToOne(cascade=CascadeType.MERGE)
+  @JoinColumn(name="user")
+  private User user;
 
 }
