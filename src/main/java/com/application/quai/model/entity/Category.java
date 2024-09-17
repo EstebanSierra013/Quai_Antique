@@ -2,6 +2,8 @@ package com.application.quai.model.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +35,8 @@ public class Category{
   @Column(nullable=false)
   private String name;
 
-  @OneToMany(mappedBy="categoryId", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
+  @OneToMany(mappedBy="category", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
+  @JsonIgnore
   private List<Dish> dishList;
 
 }

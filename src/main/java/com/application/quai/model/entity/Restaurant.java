@@ -35,11 +35,11 @@ public class Restaurant{
   private String description;
 
   @Type(JsonType.class)
-  @Column(nullable=false, columnDefinition="jsonb")
+  @Column(nullable=false, columnDefinition="JSON")
   private String amOpeningTime;
 
   @Type(JsonType.class)
-  @Column(nullable=false, columnDefinition="jsonb")
+  @Column(nullable=false, columnDefinition="JSON")
   private String pmOpeningTime;
 
   @Column(nullable=false)

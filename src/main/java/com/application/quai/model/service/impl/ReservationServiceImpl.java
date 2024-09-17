@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.application.quai.model.dto.ReservationDto;
-import com.application.quai.model.dto.ReservationDto;
 import com.application.quai.model.dto.request.ReservationRequest;
-import com.application.quai.model.entity.Reservation;
 import com.application.quai.model.entity.Reservation;
 import com.application.quai.model.mapper.ReservationDtoMapper;
 import com.application.quai.model.mapper.ReservationRequestMapper;
@@ -47,7 +45,6 @@ public class ReservationServiceImpl implements IReservationService{
     @Override
     public ReservationDto getById(int id){
         Reservation findReservation = getByReservation(id);
-        System.out.println(reservationDtoMapper.toDto(findReservation));
         return reservationDtoMapper.toDto(findReservation);
     }
 
@@ -69,7 +66,6 @@ public class ReservationServiceImpl implements IReservationService{
     @Override
     public List<ReservationDto> findAll() {
         List<Reservation> listReservations = reservationRepository.findAll();
-        System.out.println(listReservations);
         return listReservations.stream()
         .map((Reservation) -> reservationDtoMapper.toDto(Reservation))
         .collect(Collectors.toList());

@@ -1,6 +1,6 @@
 package com.application.quai.model.entity;
 
-import java.text.DecimalFormat;
+import java.math.BigDecimal;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -38,13 +38,13 @@ public class Dish{
  private String description;
 
  @Column(nullable=false)
- private DecimalFormat prix;
+ private BigDecimal prix;
 
  @OneToOne(cascade = CascadeType.ALL)
- @JoinColumn(name="imageId", nullable=false)
+ @JoinColumn(name="imageId")
  private Image imageId;
 
- @ManyToOne(cascade=CascadeType.ALL)
- @JoinColumn(name="categoryId", nullable=false)
- private Category categoryId; 
+ @ManyToOne(cascade=CascadeType.MERGE)
+ @JoinColumn(name="category", nullable=false)
+ private Category category; 
 }

@@ -51,7 +51,6 @@ public class UserServiceImpl implements IUserService{
     @Override
     public List<UserDto> findAll() {
         List<User> listUsers = userRepository.findAll();
-        System.out.println(listUsers);
         return listUsers.stream()
         .map((user) -> userDtoMapper.toDto(user))
         .collect(Collectors.toList());
@@ -68,7 +67,6 @@ public class UserServiceImpl implements IUserService{
     @Override
     public UserDto getByEmail(String email){
         User findRestaurant = getByUser(email);
-        System.out.println(userDtoMapper.toDto(findRestaurant));
         return userDtoMapper.toDto(findRestaurant);
     }
 

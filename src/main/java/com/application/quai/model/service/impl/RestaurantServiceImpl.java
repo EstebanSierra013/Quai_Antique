@@ -43,7 +43,6 @@ public class RestaurantServiceImpl implements IRestaurantService{
     @Override
     public RestaurantDto getById(int id){
         Restaurant findRestaurant = getByRestaurant(id);
-        System.out.println(restaurantDtoMapper.toDto(findRestaurant));
         return restaurantDtoMapper.toDto(findRestaurant);
     }
 

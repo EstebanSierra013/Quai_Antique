@@ -7,7 +7,6 @@ import com.application.quai.model.entity.Reservation;
 
 
 @Mapper(componentModel = "spring") 
-public interface ReservationDtoMapper {
-  
+public interface ReservationDtoMapper {  
   ReservationDto toDto(Reservation restaurant);
 }
