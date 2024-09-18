@@ -12,7 +12,5 @@ public interface DishRequestMapper {
   @Mapping(target = "idDish", ignore = true)
   @Mapping(target = "imageId", ignore = true)
   @Mapping(target = "category", ignore = true)
-  Dish toDomain(DishRequest dish);
-
-  
+  Dish toDomain(DishRequest dish);  
 }
