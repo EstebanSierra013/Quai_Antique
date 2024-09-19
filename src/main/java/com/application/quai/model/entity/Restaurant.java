@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,12 +30,15 @@ public class Restaurant{
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int idRestaurant;
 
+  @NotNull
   @Column(nullable=false)
   private String name;
 
+  @NotNull
   @Column(nullable=false)
   private String description;
 
+  @NotNull
   @Type(JsonType.class)
   @Column(nullable=false, columnDefinition="JSON")
   private String amOpeningTime;
@@ -42,6 +47,7 @@ public class Restaurant{
   @Column(nullable=false, columnDefinition="JSON")
   private String pmOpeningTime;
 
+  @Positive
   @Column(nullable=false)
   private int maxGuests;
   

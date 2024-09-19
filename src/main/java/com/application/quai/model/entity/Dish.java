@@ -12,6 +12,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,12 +33,15 @@ public class Dish{
  @GeneratedValue(strategy = GenerationType.IDENTITY)
  private int idDish;
 
+ @NotNull
  @Column(nullable=false)
  private String title;
 
+ @NotNull
  @Column(nullable=false)
  private String description;
 
+ @Positive
  @Column(nullable=false)
  private BigDecimal prix;
 

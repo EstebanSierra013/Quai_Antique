@@ -13,6 +13,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,21 +33,28 @@ import lombok.Setter;
 public class User{
 
   @Id
+  @Email
+  @Size(max = 50)
   private String email;
 
+  @NotNull
   @Column(nullable=false)
   private String firstname;
 
+  @NotNull
   @Column(nullable=false)
   private String lastname;
 
+  @NotNull
   @Column(nullable=false)
   private String password;
 
+  @NotNull
   @ManyToOne(cascade=CascadeType.MERGE)
   @JoinColumn(name="rol", nullable=false)
   private Rol rol;
 
+  @Positive
   @Column
   private int guestNumbers;
 

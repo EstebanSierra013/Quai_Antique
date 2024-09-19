@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,6 +33,7 @@ public class Rol{
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int idRol;
 
+  @NotNull
   @Column(nullable=false)
   private String name;
 
