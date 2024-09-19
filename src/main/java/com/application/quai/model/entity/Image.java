@@ -5,7 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,11 +23,19 @@ import lombok.Setter;
 @Table(name = "image")
 public class Image{
 
- @Id
- @GeneratedValue(strategy = GenerationType.IDENTITY)
- private int idImage;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int idImage;
 
- @Column(nullable=false)
- private String url;
+  @NotNull
+  @Column(nullable=false)
+  private String name;
 
+  @Column(nullable=false)
+  private String type;
+
+  @NotNull
+  @Lob
+  @Column(nullable=false, length = 5000)
+  private byte[] imageData;
 }
