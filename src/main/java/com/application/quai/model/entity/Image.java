@@ -35,7 +35,6 @@ public class Image{
   private String type;
 
   @NotNull
-  @Lob
-  @Column(nullable=false, length = 5000)
-  private byte[] imageData;
+  @Column(nullable=false)
+  private String url;
 }
