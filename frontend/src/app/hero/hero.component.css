@@ -1,0 +1,8 @@
+.hero-section {
+  background-image: url("/assets/images/hero_restaurant.jpg");
+  background-size: cover ;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: white;
+}
+

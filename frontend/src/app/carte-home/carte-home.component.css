@@ -1,0 +1,31 @@
+.section{
+  padding: 1rem 2rem;
+}
+
+.carte-home-section{
+  background-color: var(--off-white);
+}
+
+.carte-home-description{
+  text-align: start;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.carte-home-img{
+  justify-content: center;
+  align-items: center;
+  height: 20rem;
+}
+
+.img-fluid{
+  width: 40vh;
+  height: auto;
+}
+
+.carte-home-btn{
+  color: var(--golden-yellow);
+  font-size: 1.2rem;
+  width: 100%;
+  border-color: var(--golden-yellow);
+}

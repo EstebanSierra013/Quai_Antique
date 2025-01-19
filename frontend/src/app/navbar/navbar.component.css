@@ -1,0 +1,25 @@
+.navbar-principal{
+  color: white;
+  background-color: rgba(30, 31, 37,0.6);
+}
+
+.logo{
+  height: 4rem;
+}
+
+#navbarNavAltMarkup a{
+  margin: 1rem;
+  text-align: center;
+  color: white;
+}
+
+@media only screen and (min-width: 768px) {
+
+  #navbarNavAltMarkup {
+    width: 25%;
+  }
+  
+  .logo{
+    max-height: 5rem;
+  }
+}
