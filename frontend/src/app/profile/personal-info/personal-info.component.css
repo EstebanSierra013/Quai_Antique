@@ -1,0 +1,21 @@
+.form-container{
+  background-color: white;  
+  color: var(--dark-blue-color);
+}
+
+.form-control{
+  color: var(--dark-gray);
+  background-color: var(--off-white);
+  border-bottom-color: rgba(0,0,0,.42);
+  box-shadow: none;
+  border: none;
+  border-radius: .2rem .2rem 0 0;
+}
+
+.btn-primary{
+  width: 50%;
+  height: 3rem;
+  background-color: var(--golden-yellow);
+  border-radius: 1rem;
+  border: 0;
+}

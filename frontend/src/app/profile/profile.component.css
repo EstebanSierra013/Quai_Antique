@@ -1,0 +1,9 @@
+.hero-section {
+  background-image: url("/assets/images/bg-dark.jpg");
+  background-size: fill; 
+  background-repeat: no-repeat;
+  background-position: left center;
+  color: white;
+  height: 40vh;
+}
+

@@ -1,0 +1,47 @@
+<div>
+  <div class="form-container">
+    <form [formGroup]="profileForm()" class="d-flex flex-column p-5 gap-2 align-items-center">
+      <div class="w-100 mb-3">
+        <label for="firstName">Prénom:</label>
+        <input id="firstName" class="form-control" formControlName="firstName">
+      </div>
+      <div class="w-100  mb-3">
+        <label for="lastName">Nom:</label>
+        <input id="lastName" class="form-control" formControlName="lastName">
+      </div>
+      <div class="w-100 mb-3">
+        <label for="email">Email:</label>
+        <input id="email" class="form-control" formControlName="email">
+      </div>
+      <div class="w-100 mb-3">
+        <label for="convives">Nombre de convives:</label>
+        <input id="convives" class="form-control" formControlName="convives">
+      </div>
+      <div class="w-100 mb-3">
+        <label for="allergies">Allergies:</label>
+        <input id="allergies" class="form-control" formControlName="allergies" rows="3">
+      </div>
+      <button type="submit" class="btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+
+
+<div class="form-container">
+  <h3>Mot de passe</h3>
+  <form [formGroup]="profileForm()" class="d-flex flex-column p-5 gap-2 align-items-center">
+    <div class="w-100 mb-3">
+      <label for="firstName">Nouveau mot de paase:</label>
+      <input id="firstName" class="form-control" formControlName="firstName">
+    </div>
+    <div class="w-100  mb-3">
+      <label for="lastName">Répeté le nouveau mot de passe:</label>
+      <input id="lastName" class="form-control" formControlName="lastName">
+    </div>
+    <div class="w-100 mb-3">
+      <label for="email">Ancien mot de passe:</label>
+      <input id="email" class="form-control" formControlName="email">
+    </div>
+    <button type="submit" class="btn-primary">Submit</button>
+  </form>
+</div>
