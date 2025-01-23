@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.application.quai.model.dto.request.UserRequest;
 import com.application.quai.model.service.IUserService;
 
 @RestController
+@CrossOrigin("http://localhost:4200/")
 public class UserController {
   
   @Autowired

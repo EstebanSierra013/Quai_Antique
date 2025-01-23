@@ -13,8 +13,8 @@ export class PersonalInfoComponent {
       firstName: new FormControl(''),
       lastName: new FormControl(''),
       email: new FormControl(''),
-      guests: new FormControl(''),
-      allergies: new FormControl(''),
+      guestNumbers: new FormControl(''),
+      allergy: new FormControl(''),
     })
   )
 }
