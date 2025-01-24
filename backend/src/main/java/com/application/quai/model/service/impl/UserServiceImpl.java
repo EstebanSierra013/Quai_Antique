@@ -8,14 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.application.quai.model.dto.UserDto;
-import com.application.quai.model.dto.request.UserRequest;
-import com.application.quai.model.entity.Rol;
+import com.application.quai.model.dto.request.UserRequestDto;
+import com.application.quai.model.entity.Role;
 import com.application.quai.model.entity.User;
-import com.application.quai.model.mapper.UserDtoMapper;
-import com.application.quai.model.mapper.UserRequestMapper;
-import com.application.quai.model.repository.IRolRepository;
+import com.application.quai.model.mapper.UserMapper;
+import com.application.quai.model.repository.IRoleRepository;
 import com.application.quai.model.repository.IUserRepository;
 import com.application.quai.model.service.IUserService;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class UserServiceImpl implements IUserService{
@@ -24,35 +25,34 @@ public class UserServiceImpl implements IUserService{
     private IUserRepository userRepository;
 
     @Autowired
-    private UserRequestMapper userRequestMapper;
+    private UserMapper userMapper;
 
     @Autowired
-    private UserDtoMapper userDtoMapper;
+    private IRoleRepository roleRepository;
 
-    @Autowired
-    private IRolRepository rolRepository;
-
+    @Transactional
     @Override
-    public UserDto create(UserRequest user){
-        User newUser = userRequestMapper.toDomain(user);
-
+    public UserDto create(UserRequestDto user){
+        User newUser = userMapper.toEntity(user);
+        System.out.println(user);
+        System.out.println(newUser);
         String rolDefault = "Client";
         
-        Rol rolClient = rolRepository.findByName(rolDefault);
-        if(rolClient != null){
-            newUser.setRol(rolRepository.findByName(rolDefault));
-            rolClient.getUserList().addAll(List.of(newUser));
+        Role roleClient = roleRepository.findByName(rolDefault);
+        if(roleClient != null){
+            newUser.setRole(roleRepository.findByName(rolDefault));
+            roleClient.getUserList().addAll(List.of(newUser));
         }    
         
         User createdUser = userRepository.save(newUser);
-        return userDtoMapper.toDto(createdUser);
+        return userMapper.toDto(createdUser);
     }
 
     @Override
     public List<UserDto> findAll() {
         List<User> listUsers = userRepository.findAll();
         return listUsers.stream()
-        .map((user) -> userDtoMapper.toDto(user))
+        .map((user) -> userMapper.toDto(user))
         .collect(Collectors.toList());
     }
 
@@ -67,7 +67,15 @@ public class UserServiceImpl implements IUserService{
     @Override
     public UserDto getByEmail(String email){
         User findRestaurant = getByUser(email);
-        return userDtoMapper.toDto(findRestaurant);
+        return userMapper.toDto(findRestaurant);
+    }
+
+    @Override
+    public UserDto update(UserRequestDto request, String id){
+        User userToUpdate = this.getByUser(id);
+        userMapper.updateEntityFromRequest(request, userToUpdate);
+        User updatedUser = userRepository.save(userToUpdate);
+        return userMapper.toDto(updatedUser);
     }
 
     @Override

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.application.quai.model.dto.request.ReservationRequest;
+import com.application.quai.model.dto.request.ReservationRequestDto;
 import com.application.quai.model.service.IReservationService;
 
 
@@ -23,7 +23,7 @@ public class ReservationController {
   private IReservationService reservationService;
 
   @PostMapping("/")
-  public ResponseEntity<?> create(@RequestBody ReservationRequest request) {
+  public ResponseEntity<?> create(@RequestBody ReservationRequestDto request) {
     return ResponseEntity.ok(reservationService.create(request));
   }
   
@@ -33,7 +33,7 @@ public class ReservationController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<?> update(@RequestBody ReservationRequest reservation, @PathVariable int id){
+  public ResponseEntity<?> update(@RequestBody ReservationRequestDto reservation, @PathVariable int id){
     return ResponseEntity.ok(reservationService.update(reservation, id));
   }
 

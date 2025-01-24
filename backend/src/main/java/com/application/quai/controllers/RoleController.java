@@ -11,35 +11,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.application.quai.model.dto.request.RolRequest;
-import com.application.quai.model.service.IRolService;
+import com.application.quai.model.entity.Role;
+import com.application.quai.model.service.IRoleService;
 
 @RestController
 @RequestMapping("/rol")
-public class RolController {
+public class RoleController {
   
   @Autowired
-  private IRolService rolService;
+  private IRoleService roleService;
 
   @PostMapping("/")
-  public ResponseEntity<?> create(@RequestBody RolRequest request) {
-    return ResponseEntity.ok(rolService.create(request));
+  public ResponseEntity<?> create(@RequestBody Role request) {
+    return ResponseEntity.ok(roleService.create(request));
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<?> getById(@PathVariable int id){
-    return ResponseEntity.ok(rolService.getById(id));
+    return ResponseEntity.ok(roleService.getById(id));
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<?> update(@RequestBody RolRequest Rol, @PathVariable int id){
-    return ResponseEntity.ok(rolService.update(Rol, id));
+  public ResponseEntity<?> update(@RequestBody Role Role, @PathVariable int id){
+    return ResponseEntity.ok(roleService.update(Role, id));
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<?> deleteById(@PathVariable int id){
-    rolService.deleteById(id);
-    return ResponseEntity.ok("Deleted Rol");
+    roleService.deleteById(id);
+    return ResponseEntity.ok("Deleted Role");
   }
   
 }

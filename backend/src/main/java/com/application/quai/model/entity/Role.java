@@ -15,29 +15,25 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Setter
-@Getter
-@Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "rol")
-public class Rol{
+@Table(name = "roles")
+public class Role{
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int idRol;
+  private Long idRole;
 
   @NotNull
   @Column(nullable=false)
   private String name;
 
-  @OneToMany(mappedBy="rol", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
+  @OneToMany(mappedBy="role", cascade=CascadeType.MERGE, fetch = FetchType.LAZY)
   @JsonIgnore
   private List<User> userList;
 

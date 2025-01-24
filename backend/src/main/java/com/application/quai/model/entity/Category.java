@@ -31,13 +31,13 @@ public class Category{
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int idCategory;
+  private Long idCategory;
 
   @NotNull
   @Column(nullable=false)
   private String name;
 
-  @OneToMany(mappedBy="category", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
+  @OneToMany(mappedBy="category", cascade=CascadeType.ALL)
   @JsonIgnore
   private List<Dish> dishList;
 

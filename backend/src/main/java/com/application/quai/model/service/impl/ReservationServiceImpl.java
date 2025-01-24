@@ -8,10 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.application.quai.model.dto.ReservationDto;
-import com.application.quai.model.dto.request.ReservationRequest;
+import com.application.quai.model.dto.request.ReservationRequestDto;
 import com.application.quai.model.entity.Reservation;
-import com.application.quai.model.mapper.ReservationDtoMapper;
-import com.application.quai.model.mapper.ReservationRequestMapper;
+import com.application.quai.model.mapper.ReservationMapper;
 import com.application.quai.model.repository.IReservationRepository;
 import com.application.quai.model.service.IReservationService;
 
@@ -22,10 +21,7 @@ public class ReservationServiceImpl implements IReservationService{
     private IReservationRepository reservationRepository;
 
     @Autowired
-    private ReservationDtoMapper reservationDtoMapper;
-
-    @Autowired
-    private ReservationRequestMapper reservationRequestMapper;
+    private ReservationMapper reservationMapper;
 
     public Reservation getByReservation(int id){
         Optional<Reservation> optionalReservation = reservationRepository.findById(id);
@@ -36,38 +32,31 @@ public class ReservationServiceImpl implements IReservationService{
     }
 
     @Override
-    public ReservationDto create(ReservationRequest request){
-        Reservation newReservation = reservationRequestMapper.toDomain(request);
+    public ReservationDto create(ReservationRequestDto request){
+        Reservation newReservation = reservationMapper.toEntity(request);
         Reservation createdReservation = reservationRepository.save(newReservation);
-        return reservationDtoMapper.toDto(createdReservation);
+        return reservationMapper.toDto(createdReservation);
     }
 
     @Override
     public ReservationDto getById(int id){
         Reservation findReservation = getByReservation(id);
-        return reservationDtoMapper.toDto(findReservation);
+        return reservationMapper.toDto(findReservation);
     }
 
     @Override
-    public ReservationDto update(ReservationRequest request, int id) {
+    public ReservationDto update(ReservationRequestDto request, int id) {
         Reservation reservationToUpdate = this.getByReservation(id);
-        setValuesToUpdate(request,reservationToUpdate);
+        reservationMapper.updateEntityFromRequest(request, reservationToUpdate);
         Reservation updatedReservation = reservationRepository.save(reservationToUpdate);
-        return reservationDtoMapper.toDto(updatedReservation);
-    }
-
-    private void setValuesToUpdate(ReservationRequest request, Reservation currentReservation){
-        currentReservation.setDate(request.getDate());
-        currentReservation.setHour(request.getHour());
-        currentReservation.setGuestNumbers(request.getGuestNumbers());
-        currentReservation.setAllergy(request.getAllergy());
+        return reservationMapper.toDto(updatedReservation);
     }
 
     @Override
     public List<ReservationDto> findAll() {
         List<Reservation> listReservations = reservationRepository.findAll();
         return listReservations.stream()
-        .map((Reservation) -> reservationDtoMapper.toDto(Reservation))
+        .map((Reservation) -> reservationMapper.toDto(Reservation))
         .collect(Collectors.toList());
     }
 

@@ -25,7 +25,7 @@ public class Image{
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int idImage;
+  private Long idImage;
 
   @NotNull
   @Column(nullable=false)

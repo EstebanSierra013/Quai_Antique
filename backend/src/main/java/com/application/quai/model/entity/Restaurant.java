@@ -28,7 +28,7 @@ public class Restaurant{
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int idRestaurant;
+  private Long idRestaurant;
 
   @NotNull
   @Column(nullable=false)
