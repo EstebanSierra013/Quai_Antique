@@ -1,17 +1,19 @@
 package com.application.quai.model.service.impl;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.application.quai.model.dto.RestaurantDto;
-import com.application.quai.model.dto.request.RestaurantRequest;
+import com.application.quai.model.dto.request.RestaurantRequestDto;
 import com.application.quai.model.entity.Restaurant;
-import com.application.quai.model.mapper.RestaurantDtoMapper;
-import com.application.quai.model.mapper.RestaurantRequestMapper;
+import com.application.quai.model.mapper.RestaurantMapper;
 import com.application.quai.model.repository.IRestaurantRepository;
 import com.application.quai.model.service.IRestaurantService;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class RestaurantServiceImpl implements IRestaurantService{
@@ -20,48 +22,40 @@ public class RestaurantServiceImpl implements IRestaurantService{
     private IRestaurantRepository restaurantRepository;
 
     @Autowired
-    private RestaurantDtoMapper restaurantDtoMapper;
-
-    @Autowired
-    private RestaurantRequestMapper restaurantRequestMapper;
-
-    public Restaurant getByRestaurant(int id){
-        Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(id);
-        if (optionalRestaurant.isEmpty()){
-            System.err.println("ERROR");
-        }
-        return optionalRestaurant.get();
-    }
+    private RestaurantMapper restaurantMapper;
 
     @Override
-    public RestaurantDto create(RestaurantRequest request){
-        Restaurant newRestaurant = restaurantRequestMapper.toDomain(request);
+    public RestaurantDto createRestaurant(RestaurantRequestDto request){
+        Restaurant newRestaurant = restaurantMapper.toEntity(request);
         Restaurant createdRestaurant = restaurantRepository.save(newRestaurant);
-        return restaurantDtoMapper.toDto(createdRestaurant);
+        return restaurantMapper.toDto(createdRestaurant);
     }
 
     @Override
-    public RestaurantDto getById(int id){
-        Restaurant findRestaurant = getByRestaurant(id);
-        return restaurantDtoMapper.toDto(findRestaurant);
+    public List<RestaurantDto> getAllRestaurants(){
+        List<Restaurant> listRestaurant = restaurantRepository.findAll();
+        return listRestaurant.stream()
+        .map((Restaurant) -> restaurantMapper.toDto(Restaurant))
+        .collect(Collectors.toList());
     }
 
     @Override
-    public RestaurantDto update(RestaurantRequest request, int id) {
-        Restaurant restaurantToUpdate = this.getByRestaurant(id);
-        setValuesToUpdate(request,restaurantToUpdate);
-        Restaurant updatedRestaurant = restaurantRepository.save(restaurantToUpdate);
-        return restaurantDtoMapper.toDto(updatedRestaurant);
+    public RestaurantDto getRestaurantById(int id){
+        Restaurant findRestaurant = restaurantRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Restaurant not found"));
+        return restaurantMapper.toDto(findRestaurant);
     }
 
-    private void setValuesToUpdate(RestaurantRequest request, Restaurant currentRestaurant){
-        currentRestaurant.setAmOpeningTime(request.getAmOpeningTime());
-        currentRestaurant.setPmOpeningTime(request.getPmOpeningTime());
-        currentRestaurant.setMaxGuests(request.getMaxGuests());
-    }
-    
     @Override
-    public void deleteById(int id){
-        restaurantRepository.deleteById(id);
+    public RestaurantDto updateRestaurant(RestaurantRequestDto request, int id) {
+        Restaurant existingRestaurant = restaurantRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Restaurant not found"));
+        restaurantMapper.updateEntityFromRequest(request,existingRestaurant);
+        Restaurant updatedRestaurant = restaurantRepository.save(existingRestaurant);
+        return restaurantMapper.toDto(updatedRestaurant);
+    }
+
+    @Override
+    public void deleteRestaurant(int id){
+        Restaurant restaurant = restaurantRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Restaurant not found"));
+        restaurantRepository.delete(restaurant);
     }
 }

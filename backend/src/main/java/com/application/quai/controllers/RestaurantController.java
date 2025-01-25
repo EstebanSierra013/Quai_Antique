@@ -11,35 +11,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.application.quai.model.dto.request.RestaurantRequest;
+import com.application.quai.model.dto.request.RestaurantRequestDto;
 import com.application.quai.model.service.IRestaurantService;
 
 
 @RestController
-@RequestMapping("/restaurant")
+@RequestMapping("/restaurants")
 public class RestaurantController {
   
   @Autowired
   private IRestaurantService restaurantService;
 
   @PostMapping("/")
-  public ResponseEntity<?> create(@RequestBody RestaurantRequest request) {
-    return ResponseEntity.ok(restaurantService.create(request));
+  public ResponseEntity<?> createRestaurant(@RequestBody RestaurantRequestDto request) {
+    return ResponseEntity.ok(restaurantService.createRestaurant(request));
   }
   
+  @GetMapping("/")
+  public ResponseEntity<?> getAllRestaurants(){
+    return ResponseEntity.ok(restaurantService.getAllRestaurants());
+  }
+
   @GetMapping("/{id}")
-  public ResponseEntity<?> getById(@PathVariable int id){
-    return ResponseEntity.ok(restaurantService.getById(id));
+  public ResponseEntity<?> getRestaurantById(@PathVariable int id){
+    return ResponseEntity.ok(restaurantService.getRestaurantById(id));
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<?> update(@RequestBody RestaurantRequest restaurant, @PathVariable int id){
-    return ResponseEntity.ok(restaurantService.update(restaurant, id));
+  public ResponseEntity<?> updateRestaurant(@RequestBody RestaurantRequestDto restaurant, @PathVariable int id){
+    return ResponseEntity.ok(restaurantService.updateRestaurant(restaurant, id));
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> deleteById(@PathVariable int id){
-    restaurantService.deleteById(id);
+  public ResponseEntity<?> deleteRestaurant(@PathVariable int id){
+    restaurantService.deleteRestaurant(id);
     return ResponseEntity.ok("Deleted Restaurant");
   }
 }

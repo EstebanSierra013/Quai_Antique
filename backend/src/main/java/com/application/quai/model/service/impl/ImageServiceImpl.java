@@ -2,7 +2,6 @@ package com.application.quai.model.service.impl;
 
 
 import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,12 +11,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.application.quai.model.entity.Image;
 import com.application.quai.model.repository.IImageRepository;
 import com.application.quai.model.service.IImageService;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class ImageServiceImpl implements IImageService {
@@ -27,23 +27,23 @@ public class ImageServiceImpl implements IImageService {
 
   private final Path uploadPath = Paths.get("./uploads");
 
+
   @Override
-  public String uploadImage(MultipartFile imageFile){
-    try{
-      Files.copy(imageFile.getInputStream(), this.uploadPath.resolve(imageFile.getOriginalFilename()));      
-      Image newImage = Image.builder()
-          .name(imageFile.getOriginalFilename())
-          .type(imageFile.getContentType())
-          .url(this.uploadPath.resolve(imageFile.getOriginalFilename()).toString())
-          .build();
-      imageRepository.save(newImage);
-    }catch(Exception e){
-      if (e instanceof FileAlreadyExistsException) {
-        throw new RuntimeException("A file of that name already exists.");
-      }
-      throw new RuntimeException(e.getMessage());
+  public Image uploadImage(MultipartFile imageFile) throws IOException {
+    if (!Files.exists(uploadPath)) {
+      Files.createDirectories(uploadPath);
     }
-    return "File uploaded successfully : " + imageFile.getOriginalFilename();
+
+    Files.copy(imageFile.getInputStream(), this.uploadPath.resolve(imageFile.getOriginalFilename()));   
+    String fileName = imageFile.getOriginalFilename();
+    Path filePath = uploadPath.resolve(fileName);
+
+    Image newImage = new Image();
+    newImage.setName(fileName);
+    newImage.setUrl(filePath.toString());
+    newImage.setType(imageFile.getContentType());
+
+    return imageRepository.save(newImage);
   } 
 
   public Image getByImage(String name){
@@ -63,7 +63,7 @@ public class ImageServiceImpl implements IImageService {
   }
 
   @Override
-  public List<Image> findAll(){
+  public List<Image> getAllImages(){
     List<Image> listImages = imageRepository.findAll();
     return listImages.stream()
     .map((Image) -> Image)
@@ -71,20 +71,23 @@ public class ImageServiceImpl implements IImageService {
   }
 
   @Override
-  public Image getById(int id){
-    Image findImage = getByImage(id);
-    return findImage;
+  public Image getImageById(String name){
+    Image existingImage = imageRepository.findByName(name).orElseThrow(() -> new EntityNotFoundException("Image not found"));
+    return existingImage;
   }
 
   @Override
-  public void deleteById(int id){
-    try {
-      Image image = getByImage(id);
-      Path file = uploadPath.resolve(image.getName());
-      imageRepository.deleteById(id);
-      Files.deleteIfExists(file);
+  public void deleteImage(String name){
+    Image image = imageRepository.findByName(name).orElseThrow(() -> new EntityNotFoundException("Image not found"));
+    
+    Path imageFile = uploadPath.resolve(image.getUrl());
+    
+    try{
+    Files.deleteIfExists(imageFile);
     } catch (IOException e) {
       throw new RuntimeException("Error: " + e.getMessage());
     }
+
+    imageRepository.delete(image);
   }
 }

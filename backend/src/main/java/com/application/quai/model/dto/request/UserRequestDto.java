@@ -1,9 +1,10 @@
 package com.application.quai.model.dto.request;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,27 +17,28 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserRequestDto {
 
-  @NotBlank(message = "Email is mandatory")
-  @Email(message = "Email should be valid")
+  @NotBlank
+  @Email
   private String email;
   
-  @NotBlank(message = "First name is mandatory")
-  @Size(max = 50, message = "First name must not exceed 50 characters")
+  @NotBlank
+  @Size(max = 50)
   private String firstname;
 
-  @NotBlank(message = "Last name is mandatory")
-  @Size(max = 50, message = "Last name must not exceed 50 characters")
+  @NotBlank
+  @Size(max = 50)
   private String lastname;  
 
-  @NotBlank(message = "Password is mandatory")
-  @Size(min = 8, message = "Password must be at least 8 characters long")
+  @NotBlank
+  @Size(min = 8)
   private String password;
   
-  @Positive(message="number of guests must be positive.")
-  @Min(1)
+  @NotNull
+  @Min(value = 1)
+  @Max(value = 100)
   private int guests;
   
-  @Size(max = 200, message = "Allergies cannot exceed 200 characters")
+  @Size(max = 200)
   private String allergy;
   
 }

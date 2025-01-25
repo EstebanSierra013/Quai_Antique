@@ -1,11 +1,15 @@
 package com.application.quai.model.service;
 
-import com.application.quai.model.entity.Role;
+import java.util.List;
+
+import com.application.quai.model.dto.RoleDto;
+import com.application.quai.model.dto.request.RoleRequestDto;
 
 
 public interface IRoleService {
-  Role create(Role Rol);
-  Role getById( int id );
-  Role update(Role request, int id);
-  void deleteById( int id );
+  RoleDto createRole(RoleRequestDto Rol);
+  RoleDto getRoleById( int id );
+  List<RoleDto> getAllRoles();
+  RoleDto updateRole(RoleRequestDto request, int id);
+  void deleteRole( int id );
 }

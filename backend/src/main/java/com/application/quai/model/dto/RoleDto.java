@@ -1,6 +1,5 @@
-package com.application.quai.model.dto.request;
+package com.application.quai.model.dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,8 +9,8 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RolRequest {
+public class RoleDto {
   
-  @NotNull(message = "name shouldnt be null.")
   private String name;
+  
 }

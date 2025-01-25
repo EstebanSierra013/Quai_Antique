@@ -48,7 +48,7 @@ public class Dish{
 
  @OneToOne(cascade = CascadeType.ALL,orphanRemoval=true)
  @JoinColumn(name="imageId")
- private Image imageId;
+ private Image image;
 
  @ManyToOne(fetch=FetchType.LAZY)
  @JoinColumn(name="category", nullable=false)

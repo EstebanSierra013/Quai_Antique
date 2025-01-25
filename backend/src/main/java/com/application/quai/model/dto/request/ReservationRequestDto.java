@@ -1,12 +1,13 @@
 package com.application.quai.model.dto.request;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,17 +19,19 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ReservationRequestDto {
 
-  @Positive(message = "number of guests must be positive.")
-  @Min(1)
-  private int guestNumbers;
+  @NotNull
+  @Min(value = 1)
+  @Max(value = 100)
+  private int guests;
   
-  @NotNull(message = "Reservation date is required")
-  private LocalDate date;
+  @NotNull
+  private LocalDateTime date;
 
-  @NotNull(message = "Reservation time is required")
-  private LocalTime hour;
-  
-  @Size(max = 200, message = "Allergies cannot exceed 200 characters")
+  @Size(max = 200)
   private String allergy;
+
+  @NotBlank
+  @Email
+  private String userEmail;
   
 }

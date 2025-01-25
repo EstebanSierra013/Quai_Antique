@@ -26,6 +26,8 @@ public interface UserMapper {
 
     List<UserDto> toUserDtoList(List<User> users);
 
+    @Mapping(target = "reservationList", ignore = true)
+    @Mapping(target = "role", ignore = true)  
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateEntityFromRequest(UserRequestDto userRequestDto, @MappingTarget User existingUser);
 

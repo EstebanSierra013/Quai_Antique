@@ -1,7 +1,8 @@
 package com.application.quai.model.dto.request;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,21 +12,22 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RestaurantRequest {
+public class RestaurantRequestDto {
 
-  @NotNull(message = "name shouldnt be null.")
+  @NotBlank
   private String name;
 
-  @NotNull(message = "description shouldnt be null.")
+  @NotBlank
   private String description;
 
-  @NotNull(message = "morning opening time shouldnt be null.")
+  @NotBlank
   private String amOpeningTime;
 
-  @NotNull(message = "afternoon opening time shouldnt be null.")
+  @NotBlank
   private String pmOpeningTime;
 
-  @Positive(message = "guests must be positive.")
+  @NotNull
+  @Min(value = 1)
   private int maxGuests;
   
 }

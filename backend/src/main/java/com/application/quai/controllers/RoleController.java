@@ -11,34 +11,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.application.quai.model.entity.Role;
+import com.application.quai.model.dto.request.RoleRequestDto;
 import com.application.quai.model.service.IRoleService;
 
 @RestController
-@RequestMapping("/rol")
+@RequestMapping("/roles")
 public class RoleController {
   
   @Autowired
   private IRoleService roleService;
 
   @PostMapping("/")
-  public ResponseEntity<?> create(@RequestBody Role request) {
-    return ResponseEntity.ok(roleService.create(request));
+  public ResponseEntity<?> createRole(@RequestBody RoleRequestDto request) {
+    return ResponseEntity.ok(roleService.createRole(request));
+  }
+  
+  @GetMapping("/")
+  public ResponseEntity<?> getAllRoles(){
+    return ResponseEntity.ok(roleService.getAllRoles());
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<?> getById(@PathVariable int id){
-    return ResponseEntity.ok(roleService.getById(id));
+  public ResponseEntity<?> getRoleById(@PathVariable int id){
+    return ResponseEntity.ok(roleService.getRoleById(id));
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<?> update(@RequestBody Role Role, @PathVariable int id){
-    return ResponseEntity.ok(roleService.update(Role, id));
+  public ResponseEntity<?> updateRole(@RequestBody RoleRequestDto Role, @PathVariable int id){
+    return ResponseEntity.ok(roleService.updateRole(Role, id));
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> deleteById(@PathVariable int id){
-    roleService.deleteById(id);
+  public ResponseEntity<?> deleteRole(@PathVariable int id){
+    roleService.deleteRole(id);
     return ResponseEntity.ok("Deleted Role");
   }
   

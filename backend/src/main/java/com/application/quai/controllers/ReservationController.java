@@ -16,36 +16,36 @@ import com.application.quai.model.service.IReservationService;
 
 
 @RestController
-@RequestMapping("/reservation")
+@RequestMapping("/reservations")
 public class ReservationController {
   
   @Autowired
   private IReservationService reservationService;
 
   @PostMapping("/")
-  public ResponseEntity<?> create(@RequestBody ReservationRequestDto request) {
-    return ResponseEntity.ok(reservationService.create(request));
+  public ResponseEntity<?> createReservation(@RequestBody ReservationRequestDto request) {
+    return ResponseEntity.ok(reservationService.createReservation(request));
   }
   
   @GetMapping("/{id}")
-  public ResponseEntity<?> getById(@PathVariable int id){
-    return ResponseEntity.ok(reservationService.getById(id));
+  public ResponseEntity<?> getReservationById(@PathVariable int id){
+    return ResponseEntity.ok(reservationService.getReservationById(id));
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<?> update(@RequestBody ReservationRequestDto reservation, @PathVariable int id){
-    return ResponseEntity.ok(reservationService.update(reservation, id));
+  public ResponseEntity<?> updateReservation(@RequestBody ReservationRequestDto reservation, @PathVariable int id){
+    return ResponseEntity.ok(reservationService.updateReservation(reservation, id));
   }
 
-  @GetMapping("/list")
-  public ResponseEntity<?> findAll(){
-    return ResponseEntity.ok(reservationService.findAll());
+  @GetMapping("/")
+  public ResponseEntity<?> getAllReservations(){
+    return ResponseEntity.ok(reservationService.getAllReservations());
   }
 
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> deleteById(@PathVariable int id){
-    reservationService.deleteById(id);
+  public ResponseEntity<?> deleteReservation(@PathVariable int id){
+    reservationService.deleteReservation(id);
     return ResponseEntity.ok("Deleted Reservation");
   }
 }

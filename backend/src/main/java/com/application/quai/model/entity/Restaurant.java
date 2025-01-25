@@ -40,11 +40,11 @@ public class Restaurant{
 
   @NotNull
   @Type(JsonType.class)
-  @Column(nullable=false, columnDefinition="JSON")
+  @Column(nullable=false)
   private String amOpeningTime;
 
   @Type(JsonType.class)
-  @Column(nullable=false, columnDefinition="JSON")
+  @Column(nullable=false)
   private String pmOpeningTime;
 
   @Positive

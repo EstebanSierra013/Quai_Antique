@@ -2,8 +2,11 @@ package com.application.quai.model.dto.request;
 
 import java.math.BigDecimal;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,14 +16,18 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuRequest {
+public class MenuRequestDto {
   
-  @NotNull(message = "title shouldnt be null.")
+  @NotBlank
+  @Size(max = 50)
   private String title;
 
-  @NotNull(message = "description shouldnt be null.")
+  @NotBlank
+  @Size(max = 250)
   private String description;
 
-  @Positive(message = "prix must be positive.")
+  @NotNull
+  @DecimalMin(value = "0.01")
+  @Digits(integer = 3, fraction = 2)
   private BigDecimal prix;
 }

@@ -1,7 +1,6 @@
 package com.application.quai.model.dto;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,9 +14,9 @@ import lombok.Setter;
 public class ReservationDto {
 
   private int idReservation;
-  private int guestNumbers;
-  private LocalDate date;
-  private LocalTime hour;
+  private int guests;
+  private LocalDateTime date;
   private String allergy;
-  
+  private String userEmail;
+    
 }

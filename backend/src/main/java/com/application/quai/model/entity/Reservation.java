@@ -1,7 +1,6 @@
 package com.application.quai.model.entity;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,10 +32,7 @@ public class Reservation{
 
 
   @Column(nullable=false)
-  private LocalDate date;
-
-  @Column(nullable=false)
-  private LocalTime hour;
+  private LocalDateTime date;
 
   @Column
   private String allergy;

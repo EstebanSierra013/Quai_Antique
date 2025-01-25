@@ -1,12 +1,15 @@
 package com.application.quai.model.service;
 
+import java.util.List;
+
 import com.application.quai.model.dto.RestaurantDto;
-import com.application.quai.model.dto.request.RestaurantRequest;
+import com.application.quai.model.dto.request.RestaurantRequestDto;
 
 public interface IRestaurantService{
-  RestaurantDto create(RestaurantRequest request);
-  RestaurantDto getById(int id);
-  RestaurantDto update(RestaurantRequest restaurant, int id);
-  void deleteById(int id);
+  RestaurantDto createRestaurant(RestaurantRequestDto request);
+  List<RestaurantDto> getAllRestaurants();
+  RestaurantDto getRestaurantById(int id);
+  RestaurantDto updateRestaurant(RestaurantRequestDto restaurant, int id);
+  void deleteRestaurant(int id);
 }
 

@@ -8,9 +8,9 @@ import com.application.quai.model.dto.request.UserRequestDto;
 
 
 public interface IUserService {
-  UserDto create (UserRequestDto user);
-  List<UserDto> findAll();
-  UserDto getByEmail( String id );
-  UserDto update( UserRequestDto user, String id);
-  void deleteById( String id );
+  UserDto createUser (UserRequestDto user);
+  List<UserDto> getAllUsers();
+  UserDto getUserByEmail( String id );
+  UserDto updateUser( UserRequestDto user, String id);
+  void deleteUser( String id );
 }

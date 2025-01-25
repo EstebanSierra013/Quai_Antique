@@ -1,17 +1,19 @@
 package com.application.quai.model.service.impl;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.application.quai.model.dto.MenuDto;
-import com.application.quai.model.dto.request.MenuRequest;
+import com.application.quai.model.dto.request.MenuRequestDto;
 import com.application.quai.model.entity.Menu;
-import com.application.quai.model.mapper.MenuDtoMapper;
-import com.application.quai.model.mapper.MenuRequestMapper;
+import com.application.quai.model.mapper.MenuMapper;
 import com.application.quai.model.repository.IMenuRepository;
 import com.application.quai.model.service.IMenuService;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class MenuServiceImpl implements IMenuService {
@@ -20,48 +22,40 @@ public class MenuServiceImpl implements IMenuService {
   private IMenuRepository menuRepository;
 
   @Autowired
-  private MenuDtoMapper menuDtoMapper;
-
-  @Autowired
-  private MenuRequestMapper menuRequestMapper;
+  private MenuMapper menuMapper;
 
   @Override
-  public MenuDto create(MenuRequest request){
-    Menu newMenu = menuRequestMapper.toDomain(request);
+  public MenuDto createMenu(MenuRequestDto request){
+    Menu newMenu = menuMapper.toEntity(request);
     Menu createdMenu = menuRepository.save(newMenu);
-    return menuDtoMapper.toDto(createdMenu);    
-  }
-
-  public Menu getByMenu(int id){
-    Optional<Menu> optionalMenu = menuRepository.findById(id);
-    if (optionalMenu.isEmpty()){
-        System.err.println("ERROR");
-    }
-    return optionalMenu.get();
+    return menuMapper.toDto(createdMenu);    
   }
 
   @Override
-  public MenuDto getById(int id){
-    Menu findMenu = getByMenu(id);
-    return menuDtoMapper.toDto(findMenu);
+  public List<MenuDto> getAllMenus(){
+    List<Menu> listMenu = menuRepository.findAll();
+    return listMenu.stream()
+    .map((Menu) -> menuMapper.toDto(Menu))
+    .collect(Collectors.toList());
   }
 
   @Override
-  public MenuDto update(MenuRequest request, int id) {
-      Menu menuToUpdate = this.getByMenu(id);
-      setValuesToUpdate(request,menuToUpdate);
-      Menu updatedMenu = menuRepository.save(menuToUpdate);
-      return menuDtoMapper.toDto(updatedMenu);
-  }
-
-  private void setValuesToUpdate(MenuRequest request, Menu currentMenu){
-      currentMenu.setTitle(request.getTitle());
-      currentMenu.setDescription(request.getDescription());
-      currentMenu.setPrix(request.getPrix());
+  public MenuDto getMenuById(int id){
+    Menu findMenu = menuRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Menu not found"));
+    return menuMapper.toDto(findMenu);
   }
 
   @Override
-  public void deleteById(int id){
-    menuRepository.deleteById(id);
+  public MenuDto updateMenu(MenuRequestDto request, int id) {
+      Menu existingMenu = menuRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Menu not found"));
+      menuMapper.updateEntityFromRequest(request, existingMenu);
+      Menu updatedMenu = menuRepository.save(existingMenu);
+      return menuMapper.toDto(updatedMenu);
+  }
+
+  @Override
+  public void deleteMenu(int id){
+    Menu menu = menuRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Menu not found"));
+    menuRepository.delete(menu);
   }
 }
