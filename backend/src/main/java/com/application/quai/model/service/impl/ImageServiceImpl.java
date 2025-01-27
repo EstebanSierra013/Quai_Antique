@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,22 +44,6 @@ public class ImageServiceImpl implements IImageService {
 
     return imageRepository.save(newImage);
   } 
-
-  public Image getByImage(String name){
-    Optional<Image> optionalImage = imageRepository.findByName(name);
-    if (optionalImage.isEmpty()){
-        System.err.println("ERROR");
-    }
-    return optionalImage.get();
-  }
-
-  public Image getByImage(int id){
-    Optional<Image> optionalImage = imageRepository.findById(id);
-    if (optionalImage.isEmpty()){
-        System.err.println("ERROR");
-    }
-    return optionalImage.get();
-  }
 
   @Override
   public List<Image> getAllImages(){

@@ -15,6 +15,7 @@ import lombok.Setter;
 public class MenuDto {
   
   @NotNull
+  private int idMenu;
   private String title;
   private String description;
   private BigDecimal prix;

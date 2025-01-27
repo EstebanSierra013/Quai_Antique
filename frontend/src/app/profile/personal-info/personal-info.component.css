@@ -14,7 +14,7 @@
 
 .btn-primary{
   width: 50%;
-  height: 3rem;
+  padding: 1rem;
   background-color: var(--golden-yellow);
   border-radius: 1rem;
   border: 0;

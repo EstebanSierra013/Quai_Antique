@@ -1,12 +1,17 @@
-<app-navbar></app-navbar>
-
+<header>
+  <app-navbar></app-navbar> 
+</header>
 <div class="d-flex flex-column justify-content-center text-center hero-section ">
   <h3>Bienvenue, {{ user?.firstname }}</h3>
 </div>
+<main>
+  @if(isLoggedIn || isSaveInProgress){
+    <app-personal-info [dataUser]="user"></app-personal-info>
+    <app-gestion-menu></app-gestion-menu>
+    <app-list-reservations [reservationList]="user.reservationList" [userEmail]="user.email" (isSaveInProgress)="updateProfile($event)"></app-list-reservations>
+  }
+</main>
+<footer>
+  <app-footer></app-footer>
+</footer>
 
-<app-personal-info></app-personal-info>
-<app-list-reservations></app-list-reservations>
-
-
-
-<app-footer></app-footer>

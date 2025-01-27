@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RestaurantDto {
 
+  private int idRestaurant; 
   private String name;
   private String description;
   private String amOpeningTime;

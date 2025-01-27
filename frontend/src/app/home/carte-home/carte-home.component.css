@@ -1,7 +1,3 @@
-.section{
-  padding: 1rem 2rem;
-}
-
 .carte-home-section{
   background-color: var(--off-white);
 }
@@ -28,4 +24,28 @@
   font-size: 1.2rem;
   width: 100%;
   border-color: var(--golden-yellow);
+}
+
+
+@media (min-width: 768px) {
+
+  .carte-home-img{
+    width: 40%;
+    height: 100%;
+  }
+
+  .carte-home-description{
+    width: 60%;
+  }
+ 
+  .img-fluid{
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+@media (min-width: 1200px) {
+
+
 }

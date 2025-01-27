@@ -1,10 +1,7 @@
-.section{
-  padding: 2rem 2rem;
-}
 
 .schedule-home-description{  
   text-align: center;
-  padding: 2rem;
+  padding: 0 2rem 2rem 2rem;  
   gap: 2rem;
 }
 
@@ -23,3 +20,25 @@
   gap: 1rem;
 }
 
+@media (min-width: 768px) {
+
+  .schedule-home-card{
+    width: 60%;
+  }
+}
+
+
+@media (min-width: 1200px) {
+
+  .schedule-home-card{
+    width: 50%;
+  }
+
+  .schedule-home-description{
+    width: 40%;
+  }
+
+  .schedule-home-cards{
+    width: 60%;
+  }
+}

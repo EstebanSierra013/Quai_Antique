@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.application.quai.model.dto.ReservationDto;
 import com.application.quai.model.dto.request.ReservationRequestDto;
-import com.application.quai.model.entity.User;
 import com.application.quai.model.entity.Reservation;
+import com.application.quai.model.entity.User;
 import com.application.quai.model.mapper.ReservationMapper;
 import com.application.quai.model.repository.IReservationRepository;
 import com.application.quai.model.repository.IUserRepository;
@@ -39,7 +39,6 @@ public class ReservationServiceImpl implements IReservationService{
 
     newReservation.setUser(userReservation);
     userReservation.getReservationList().add(newReservation);
-    userRepository.save(userReservation);
 
     Reservation createdReservation = reservationRepository.save(newReservation);
     return reservationMapper.toDto(createdReservation);
@@ -71,7 +70,6 @@ public class ReservationServiceImpl implements IReservationService{
     @Override
     public void deleteReservation(int id){
         Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Reservation not found"));
-
         User user = reservation.getUser();
         user.getReservationList().remove(reservation);
         userRepository.save(user);

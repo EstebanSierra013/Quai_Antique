@@ -1,0 +1,70 @@
+<header>
+  <app-navbar></app-navbar> 
+</header>
+<div class="d-flex flex-column justify-content-center text-center hero-section ">
+  <h3>Gestion Restaurant</h3>
+</div>
+
+<div class="d-flex flex-column align-items-center gap-5 side-padding section">
+  <h3>Restaurants</h3>
+  <a class="btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#formModalRestaurant">Ajouter</a> 
+  <div class="d-flex flex-column gap-2 flex-md-row flex-md-wrap">
+    @for (restaurant of restaurantList; track restaurant.idRestaurant) {
+      <div class="card" style="width: 18rem;">
+        <div class="d-flex flex-column gap-3 align-items-center justify-content-center card-body">
+          <div class="d-flex flex-column py-3 gap-1">
+            <p>{{restaurant.name}}</p>
+            <p>{{restaurant.description}}</p>
+            <p>Horaire:</p>
+            <ul>
+              <li>Service du Midi: {{restaurant.amOpeningTime}}</li>
+              <li>Service du Soir: {{restaurant.pmOpeningTime}}</li>
+            </ul>
+            <p>Capacité: {{restaurant.maxGuests}}</p>
+          </div>
+          <button class="btn-card btn-primary" (click)="deleteRestaurant(restaurant.idRestaurant)">Supprimer</button>
+          <a class="btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#formModalRestaurant" (click)="updateModal(restaurant.idRestaurant)">Editer</a> 
+        </div>
+      </div>
+    }@empty {
+    <p>Il n'y a pas des restaurants</p>
+    }
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="formModalRestaurant" tabindex="-1" aria-labelledby="formModalRestaurant" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Restaurant</h1>
+        <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="restaurantForm" (ngSubmit)="edit ? updateRestaurant(dataRestaurant.idRestaurant) : createRestaurant()" class="d-flex flex-column p-5 gap-2 align-items-center">
+          <div class="w-100 mb-3">
+            <label for="name">Name:</label>
+            <input id="name" class="form-control" formControlName="name">
+          </div>
+          <div class="w-100 mb-3">
+            <label for="description">Description:</label>
+            <input id="description" class="form-control" formControlName="description">
+          </div>
+          <div class="w-100 mb-3">
+            <label for="amOpeningTime">Service du Midi:</label>
+            <input id="amOpeningTime" class="form-control" formControlName="amOpeningTime">
+          </div>
+          <div class="w-100 mb-3">
+            <label for="pmOpeningTime">Service du Soir:</label>
+            <input id="pmOpeningTime" class="form-control" formControlName="amOpeningTime">
+          </div>
+          <div class="w-100 mb-3">
+            <label for="maxGuests">Capacité:</label>
+            <input id="maxGuests" class="form-control" formControlName="maxGuests">
+          </div>
+          <button type="submit" class="btn-primary" >Mettre à jour</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

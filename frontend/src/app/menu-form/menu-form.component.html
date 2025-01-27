@@ -1,0 +1,57 @@
+<header>
+  <app-navbar></app-navbar> 
+</header>
+<div class="d-flex flex-column justify-content-center text-center hero-section ">
+  <h3>Gestion - Menu</h3>
+</div>
+
+<div class="d-flex flex-column align-items-center gap-5 side-padding section">
+  <h3>Menus</h3>
+  <a class="btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#formModalMenu">Ajouter</a> 
+  <div class="d-flex flex-column gap-2 flex-md-row flex-md-wrap">
+    @for (menu of menuList; track menu.idMenu) {
+      <div class="card" style="width: 18rem;">
+        <div class="d-flex flex-column align-items-center justify-content-center card-body">
+          <div class="d-flex flex-column py-3 gap-1">
+            <p>{{menu.title}}</p>
+            <p>{{menu.description}}</p>
+            <p>Prix:{{menu.prix}}</p>
+          </div>
+          <button class="btn-card btn-primary" (click)="deleteMenu(menu.idMenu)">Supprimer</button>
+          <a class="btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#formModalMenu" (click)="updateModal(menu.idMenu)">Editer</a> 
+        </div>
+      </div>
+    }@empty {
+    <p>Il n'y a pas des menus</p>
+    }
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="formModalMenu" tabindex="-1" aria-labelledby="formModalMenu" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Menu</h1>
+        <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="menuForm" (ngSubmit)="edit ? updateMenu(dataMenu.idMenu) : createMenu()" class="d-flex flex-column p-5 gap-2 align-items-center">
+          <div class="w-100 mb-3">
+            <label for="title">Title:</label>
+            <input id="title" class="form-control" formControlName="title">
+          </div>
+          <div class="w-100 mb-3">
+            <label for="description">Description:</label>
+            <input id="description" class="form-control" formControlName="description">
+          </div>
+          <div class="w-100 mb-3">
+            <label for="prix">Prix:</label>
+            <input id="prix" class="form-control" formControlName="prix">
+          </div>
+          <button type="submit" class="btn-primary" >Mettre à jour</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

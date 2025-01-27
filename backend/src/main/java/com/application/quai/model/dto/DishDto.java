@@ -13,6 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DishDto {
 
+  private String idDish;
   private String title;
   private String description;
   private BigDecimal prix;

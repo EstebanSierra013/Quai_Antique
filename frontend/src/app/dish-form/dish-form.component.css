@@ -1,0 +1,24 @@
+.hero-section {
+  background-image: url("/assets/images/bg-dark.jpg");
+  background-size: fill; 
+  background-repeat: no-repeat;
+  background-position: left center;
+  color: white;
+  height: 40vh;
+}
+
+.card{
+  background-color: var(--light-gray);
+}
+
+.btn-primary{
+  width: 40%;
+  padding: 1rem;
+  background-color: var(--golden-yellow);
+  border-radius: 1rem;
+  border: 0;
+}
+
+.btn-card{
+  width: 80%;
+}

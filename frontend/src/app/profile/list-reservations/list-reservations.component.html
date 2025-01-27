@@ -1,1 +1,56 @@
-<p>list-reservations works!</p>
+<div class="d-flex flex-column align-items-center gap-5 side-padding section">
+  <h3>Reservations</h3>
+  <a class="btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#formModalReservation" (click)="edit=true">Ajouter</a> 
+  <div class="d-flex flex-column gap-2 flex-md-row flex-md-wrap">
+    @for (reservation of reservationList; track reservation.idReservation) {
+      <div class="card" style="width: 18rem;">
+        <div class="d-flex flex-column align-items-center justify-content-center card-body">
+          <div class="d-flex flex-column py-3 gap-1">
+            <h5>Réservation {{reservation.idReservation}}</h5>
+            <p>Convives: {{reservation.guests}}</p>
+            <p>Date: {{reservation.date}}</p>
+            <p>Allergies: {{reservation.allergy}}</p>
+          </div>
+          <button class="btn-card btn-primary" (click)="deleteReservation(reservation.idReservation)">Supprimer</button>
+          <a class="btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#formModalReservation" (click)="updateModal(reservation.idReservation)">Editer</a> 
+        </div>
+      </div>
+    }@empty {
+    <p>Il n'y a pas des réservations</p>
+    }
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="formModalReservation" tabindex="-1" aria-labelledby="formModalReservation" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Reservation</h1>
+        <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="reservationForm" (ngSubmit)="edit ? updateReservation(dataReservation.idReservation) : createReservation()"  class="d-flex flex-column p-5 gap-2 align-items-center">
+          <div class="w-100 mb-3">
+            <label for="userEmail">User:</label>
+            <input id="userEmail" class="form-control" formControlName="userEmail" [readonly]="edit">
+          </div>          
+          <div class="w-100 mb-3">
+            <label for="date">Date:</label>       
+            <input id="date" class="form-control" formControlName="date">
+          </div>
+          <div class="w-100 mb-3">
+            <label for="guests">Nombre de convives:</label>
+            <input id="guests" class="form-control" formControlName="guests">
+          </div>
+          <div class="w-100 mb-3">
+            <label for="allergy">Allergies:</label>
+            <input id="allergy" class="form-control" formControlName="allergy" rows="3">
+          </div>
+          <button type="submit" class="btn-primary" data-dismiss="modal">Mettre à jour</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
